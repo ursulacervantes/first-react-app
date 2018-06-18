@@ -5,33 +5,30 @@ import s from './ItemList.scss';
 
 class ItemList extends React.Component {
   render() {
-    return (
-      <ul className={s['content-list']}>
-        <li className={s['list-item']}>
-          <span className={s.score}>313</span>
-          <span className={s.title}>
-            <a href="#" target="_blank">
-              Alternatives to Google Products
+    const listItems = this.props.repositories.map(repo => (
+      <li className={s['list-item']} key={repo.id}>
+        <span className={s.score}>{repo.stargazers_count}</span>
+        <span className={s.title}>
+          <a href={repo.url} target="_blank">
+            {repo.name}
+          </a>
+          <span className={s.host}> {repo.language}</span>
+        </span>
+        <br />
+        <span className={s.meta}>
+          <span>
+            by{' '}
+            <a href={repo.owner.url} className="">
+              {repo.owner.login}
             </a>
-            <span className={s.host}> restoreprivacy.com</span>
           </span>
-          <br />
-          <span className={s.meta}>
-            <span>
-              by{' '}
-              <a href="#" className="">
-                wuschel
-              </a>
-            </span>
-            <span> 7 hours ago</span>
-            <span>
-              {' '}
-              | <a href="#">162 Comments</a>
-            </span>
-          </span>
-        </li>
-      </ul>
-    );
+          <span> | {repo.forks_count} Forks</span>
+          <span> | {repo.open_issues_count} Open Issues</span>
+        </span>
+      </li>
+    ));
+
+    return <ul className={s['content-list']}>{listItems}</ul>;
   }
 }
 
